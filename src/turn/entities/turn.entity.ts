@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Notification } from "../../notification/entities/notification.entity";
 
 @Entity()
 export class Turn {
@@ -18,4 +19,7 @@ export class Turn {
     default: new Date(),
   })
   createdAt: Date;
+
+  @OneToMany(() => Notification, (notification) => notification.turn)
+  notification: Notification;
 }

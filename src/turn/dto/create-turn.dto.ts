@@ -17,5 +17,5 @@ export class CreateTurnDto {
 
   @IsDate()
   @IsOptional()
-  date: Date;
+  date?: Date;
 }

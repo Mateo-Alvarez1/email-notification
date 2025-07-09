@@ -40,8 +40,8 @@ export class TurnService {
     } else {
       const queryBuilder = this.turnRepository.createQueryBuilder();
       turn = await queryBuilder
-        .where(`status =:status`, {
-          status: term,
+        .where(`name =:name`, {
+          name: term,
         })
         .getOne();
     }
