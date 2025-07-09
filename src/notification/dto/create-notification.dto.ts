@@ -1,4 +1,4 @@
-import { IsBoolean, IsDateString, IsOptional } from "class-validator";
+import { IsBoolean, IsDateString, IsOptional, IsUUID } from "class-validator";
 
 export class CreateNotificationDto {
   @IsDateString() // ISO8601 (ej: "2025-07-10T14:00:00.000Z")
@@ -11,4 +11,7 @@ export class CreateNotificationDto {
   @IsOptional()
   @IsDateString()
   sentAt?: string;
+
+  @IsUUID()
+  turnId: string;
 }

@@ -1,11 +1,4 @@
-import { Turn } from "src/turn/entities/turn.entity";
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Notification {
@@ -21,7 +14,6 @@ export class Notification {
   @Column({ type: "timestamptz", nullable: true }) // fecha real en que se envió
   sentAt: Date | null;
 
-  @ManyToOne(() => Turn, (turn) => turn.notification, { cascade: true })
-  @JoinColumn({ name: "turnId" })
-  turn: Turn;
+  @Column({ type: "uuid" })
+  turnId: string;
 }

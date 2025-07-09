@@ -1,6 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Notification } from "../../notification/entities/notification.entity";
-
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Turn {
   @PrimaryGeneratedColumn("uuid")
@@ -11,15 +9,10 @@ export class Turn {
     unique: true,
   })
   email: string;
-  @Column({
-    default: new Date(),
-  })
+  @Column({ type: "timestamptz", default: new Date() })
   date: Date;
   @Column({
     default: new Date(),
   })
   createdAt: Date;
-
-  @OneToMany(() => Notification, (notification) => notification.turn)
-  notification: Notification;
 }

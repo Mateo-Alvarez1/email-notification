@@ -10,18 +10,29 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Turn } from "./entities/turn.entity";
 import { Repository } from "typeorm";
 import { validate as IsUUID } from "uuid";
+import { NotificationService } from "src/notification/notification.service";
 
 @Injectable()
 export class TurnService {
   constructor(
     @InjectRepository(Turn)
-    private readonly turnRepository: Repository<Turn>
+    private readonly turnRepository: Repository<Turn>,
+    private readonly notificationService: NotificationService
   ) {}
 
   async create(createTurnDto: CreateTurnDto) {
     try {
       const turn = this.turnRepository.create(createTurnDto);
       await this.turnRepository.save(turn);
+
+      const sendAt = new Date(turn.date);
+      sendAt.setHours(sendAt.getHours() - 1);
+
+      await this.notificationService.create({
+        turnId: turn.id,
+        sendAt: sendAt.toISOString(),
+      });
+
       return turn;
     } catch (error) {
       this.handleErrors(error);

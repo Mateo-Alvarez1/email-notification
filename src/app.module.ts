@@ -3,6 +3,7 @@ import { TurnModule } from "./turn/turn.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
 import { NotificationModule } from './notification/notification.module';
+import { MailerModule } from './mailer/mailer.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { NotificationModule } from './notification/notification.module';
       synchronize: true,
     }),
     NotificationModule,
+    MailerModule,
   ],
   controllers: [],
   providers: [],
