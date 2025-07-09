@@ -2,8 +2,11 @@ import { Module } from "@nestjs/common";
 import { TurnModule } from "./turn/turn.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
-import { NotificationModule } from './notification/notification.module';
-import { MailerModule } from './mailer/mailer.module';
+import { NotificationModule } from "./notification/notification.module";
+import { MailerModule } from "./mailer/mailer.module";
+import { CronModule } from "./cron/cron.module";
+import { ScheduleModule } from "@nestjs/schedule";
+import { CronService } from "./cron/cron.service";
 
 @Module({
   imports: [
@@ -21,8 +24,10 @@ import { MailerModule } from './mailer/mailer.module';
     }),
     NotificationModule,
     MailerModule,
+    CronModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [],
-  providers: [],
+  providers: [CronService],
 })
 export class AppModule {}

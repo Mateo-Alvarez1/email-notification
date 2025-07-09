@@ -12,7 +12,7 @@ export class MailerService {
   });
 
   async sendMail(to: string, subject: string, text: string) {
-    await this.transporter.sendMail({
+    this.transporter.sendMail({
       from: process.env.MAIL_USER,
       to,
       subject,
