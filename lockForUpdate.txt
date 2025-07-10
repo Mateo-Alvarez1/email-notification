@@ -1,0 +1,23 @@
+┌─────────────┐                    ┌─────────────┐
+│  PROCESO A  │                    │  PROCESO B  │
+└─────────────┘                    └─────────────┘
+       │                                  │
+       │ BEGIN TRANSACTION                │
+       │ SELECT * FROM notifications      │
+       │ WHERE id = 1 FOR UPDATE          │
+       │ 🔒 (BLOQUEA la fila)             │
+       │                                  │
+       │                                  │ BEGIN TRANSACTION
+       │                                  │ SELECT * FROM notifications
+       │                                  │ WHERE id = 1 FOR UPDATE
+       │                                  │ ⏳ (ESPERA... fila bloqueada)
+       │                                  │
+       │ UPDATE sent = true               │
+       │ ENVÍA EMAIL ✉️                   │
+       │ COMMIT                           │
+       │ 🔓 (LIBERA el lock)              │
+       │                                  │
+       │                                  │ 🔓 (Obtiene el lock)
+       │                                  │ (encuentra sent = true)
+       │                                  │ NO ENVÍA EMAIL ✅
+       │                                  │ COMMIT

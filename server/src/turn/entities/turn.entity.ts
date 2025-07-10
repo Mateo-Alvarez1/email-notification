@@ -3,16 +3,19 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class Turn {
   @PrimaryGeneratedColumn("uuid")
   id: string;
-  @Column("text")
+  @Column("text", {
+    nullable: false,
+  })
   name: string;
   @Column("text", {
     unique: true,
+    nullable: false,
   })
   email: string;
   @Column({ type: "timestamptz", default: new Date() })
   date: Date;
   @Column({
-    default: new Date(),
+    default: new Date().toISOString(),
   })
   createdAt: Date;
 }
